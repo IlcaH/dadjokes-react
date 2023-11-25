@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import './style.css';
+import { joke } from '../../components/joke';
 
 export const HomePage = () => {
   const [likesUp, setLikesUp] = useState(0);
   const [likesDown, setLikesDown] = useState(0);
+  const [joke, setJoke] = useState();
+
+  useEffect((joke) => {
+    const handleFetch = async () => {
+      const response = await fetch('https://raw.githubusercontent.com/Czechitas-podklady-WEB/daweb-test/deploy/jokes.json');
+      const data = await response.json();
+      setJokes(data.result);
+    };
+    handleFetch();
+  }, []);
 
   return (
     <div className="container">
@@ -46,3 +57,4 @@ export const HomePage = () => {
     </div>
   );
 };
+
